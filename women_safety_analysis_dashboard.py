@@ -4,7 +4,7 @@ import plotly.express as px
 
 
 data ={
-    "City":["Delhi" , "Mumbai" , "Bangalore" , "Hyderbad" , "Chennai" , "Kolkata" , "Pune" , "Ahmedabad" , "Jaipur" , "Surat" , "Lucknow" , "Kanpur" , "Nagpur" , "Indore" , "Thane" , "Bhopal" , "Visakhapatnam" , "Patna" , "Vadodara" , "Ghaziabad"],
+    "City":["Delhi" , "Mumbai" , "Bangalore" , "Hyderabad" , "Chennai" , "Kolkata" , "Pune" , "Ahmedabad" , "Jaipur" , "Surat" , "Lucknow" , "Kanpur" , "Nagpur" , "Indore" , "Thane" , "Bhopal" , "Visakhapatnam" , "Patna" , "Vadodara" , "Ghaziabad"],
     "Crime rate":[13000 , 5000 , 3500 , 2800 , 2000 , 1800 , 2200 , 1500 , 1200 , 900 , 2000 ,1300 , 1100 ,1000 ,800 ,900 ,700 ,1500 , 800 ,1200 ] ,
     "Emergency number":["1091" , "103" ,"1091" ,"1091" ,"1091" , "1091" ,"1091" , "1091" ,"1091" ,"1091" ,"1091" , "1091" ,"1091" , "1091" ,"1091" ,"1091" ,"1091" , "1091" ,"1091" , "1091" ],
     "Safe place":["Connaught Place" , "Marine Drive" , "Indiranagar" , "Banjara Hills" , "T Nagar" , "Park Street" , "Koregaon Park" , "SG Highway" , "Vaishali Nagar" , "Vesu" ,"Gomti Nagar" , "Civil Lines" , "Ramdaspeth" , "Vijay Nagar" , "Hiranandani Estate" , "Arera Colony" , "Rushikonda Beach Area" , "Boring Road" , "Alkapuri" , "Vaishali" ],
