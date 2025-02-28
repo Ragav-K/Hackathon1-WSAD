@@ -175,7 +175,7 @@ unsafe_location = st.text_input("Enter the unsafe location:")
 if st.button("Submit Report"):
     if unsafe_location:
          append_to_csv(REPORTS_FILE, unsafe_location)
-        st.success(f"Reported the place *{unsafe_location}* as unsafe. Authorities will be alerted.")
+         st.success(f"Reported the place *{unsafe_location}* as unsafe. Authorities will be alerted.")
     else:
         st.warning("Please enter a loaction before reporting")
 
