@@ -27,6 +27,15 @@ def insert_data(table_name, data):
     conn.commit()
     conn.close()
 
+# Function to fetch data from the database
+def fetch_data(table_name):
+    conn = sqlite3.connect('user_data.db')
+    c = conn.cursor()
+    c.execute(f"SELECT * FROM {table_name}")
+    data = c.fetchall()
+    conn.close()
+    return data
+
 # Initialize the database
 init_db()
 
@@ -193,6 +202,16 @@ if st.button("Submit Feedback"):
         st.success("Thank you for your feedback! We have received it.")
     else:
         st.warning("Please enter feedback before submitting.")
+
+# View Stored Data
+st.subheader("View Stored Data")
+table_name = st.selectbox("Select a table to view", ["complaints", "reports", "feedback"])
+if st.button("View Data"):
+    data = fetch_data(table_name)
+    if data:
+        st.write(pd.DataFrame(data, columns=["ID", table_name[:-1]]))
+    else:
+        st.write("No data found in the selected table.")
 
 st.markdown("---")
 st.title("Stay Safe")
