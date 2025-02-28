@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
+import tempfile
+
+temp_dir = tempfile.mkdtemp()
 
 def init_files():
     if not os.path.exists(COMPLAINTS_FILE):
