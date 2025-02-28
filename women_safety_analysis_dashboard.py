@@ -2,9 +2,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import sqlite3
+import smtplib  # For sending emails
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Admin password (you can change this to something more secure)
-ADMIN_PASSWORD = "Hackrizz"  # Replace with a strong password
+ADMIN_PASSWORD = "admin123"  # Replace with a strong password
 
 # Initialize SQLite database
 def init_db():
@@ -38,6 +41,39 @@ def fetch_data(table_name):
     data = c.fetchall()
     conn.close()
     return data
+
+# Function to send an SOS alert via email
+def send_sos_alert():
+    # Email configuration
+    sender_email = "your_email@gmail.com"  # Replace with your email
+    receiver_email = "emergency_contact@gmail.com"  # Replace with emergency contact email
+    password = "your_email_password"  # Replace with your email password
+
+    # Create the email
+    subject = "SOS Alert: Immediate Assistance Required"
+    body = f"""
+    SOS Alert!
+    
+    A user has triggered an SOS alert. Please take immediate action.
+    
+    User Location: {st.session_state.get('user_location', 'Unknown')}
+    """
+    
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "plain"))
+
+    # Send the email
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+        st.success("SOS alert sent successfully!")
+    except Exception as e:
+        st.error(f"Failed to send SOS alert: {e}")
 
 # Initialize the database
 init_db()
@@ -78,6 +114,17 @@ data_frame = pd.DataFrame(data)
 data_frame_1 = pd.DataFrame(Hotels)
 
 st.title("Women Safety Analysis Dashboard")
+
+# SOS Button
+st.markdown("---")
+st.subheader("Emergency SOS Button")
+user_location = st.text_input("Enter your current location (for SOS alert):")
+if st.button("🚨 Trigger SOS Alert"):
+    if user_location:
+        st.session_state['user_location'] = user_location
+        send_sos_alert()
+    else:
+        st.warning("Please enter your location before triggering the SOS alert.")
 
 red_color = ["#FFCCCB", "#FF6666", "#FF0000", "#CC0000", "#800000"]
 graph = px.bar(data_frame, x="City", y="Crime rate", title="Crime Rate in Different Areas", color="Crime rate", color_continuous_scale=red_color, height=500)
