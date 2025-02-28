@@ -6,7 +6,7 @@ import tempfile
 
 temp_dir = tempfile.mkdtemp()
 
-def init_files():
+#def init_files():
     if not os.path.exists(COMPLAINTS_FILE):
         open(COMPLAINTS_FILE, "w").close()  # Create an empty file
     if not os.path.exists(REPORT_FILE):
@@ -20,7 +20,7 @@ def append_to_csv(file_name, data):
     df.loc[len(df)] = [data]
     df.to_csv(file_name, index=False)
 
-init_files()
+#init_files()
 
 
 data ={
