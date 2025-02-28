@@ -5,11 +5,12 @@ import os
 
 def init_files():
     if not os.path.exists(COMPLAINTS_FILE):
-        pd.DataFrame(columns=["Complaint"]).to_csv(COMPLAINTS_FILE, index=False)
-    if not os.path.exists(REPORTS_FILE):
-        pd.DataFrame(columns=["Unsafe Location"]).to_csv(REPORTS_FILE, index=False)
+        open(COMPLAINTS_FILE, "w").close()  # Create an empty file
+    if not os.path.exists(REPORT_FILE):
+        open(REPORT_FILE, "w").close()
     if not os.path.exists(FEEDBACK_FILE):
-        pd.DataFrame(columns=["Feedback"]).to_csv(FEEDBACK_FILE, index=False)
+        open(FEEDBACK_FILE, "w").close()
+
 
 def append_to_csv(file_name, data):
     df = pd.read_csv(file_name)
