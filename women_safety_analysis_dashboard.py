@@ -7,11 +7,11 @@ import tempfile
 temp_dir = tempfile.mkdtemp()
 
 #def init_files():
-    if not os.path.exists(COMPLAINTS_FILE):
+if not os.path.exists(COMPLAINTS_FILE):
         open(COMPLAINTS_FILE, "w").close()  # Create an empty file
-    if not os.path.exists(REPORT_FILE):
+if not os.path.exists(REPORT_FILE):
         open(REPORT_FILE, "w").close()
-    if not os.path.exists(FEEDBACK_FILE):
+if not os.path.exists(FEEDBACK_FILE):
         open(FEEDBACK_FILE, "w").close()
 
 
