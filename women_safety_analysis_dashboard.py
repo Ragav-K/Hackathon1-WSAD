@@ -139,13 +139,20 @@ admin_password = st.text_input("Enter Admin Password", type="password")
 if admin_password == ADMIN_PASSWORD:
     st.success("Admin access granted!")
     
-    # View Stored Data
-    st.subheader("View Stored Data")
-    table_name = st.selectbox("Select a table to view", ["complaints", "reports", "feedback"])
-    if st.button("View Data"):
+    # Export Data
+    st.subheader("Export Data")
+    table_name = st.selectbox("Select a table to export", ["complaints", "reports", "feedback"])
+    if st.button("Export Data"):
         data = fetch_data(table_name)
         if data:
-            st.write(pd.DataFrame(data, columns=["ID", table_name[:-1]]))
+            df = pd.DataFrame(data, columns=["ID", table_name[:-1]])
+            csv = df.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label="Download CSV",
+                data=csv,
+                file_name=f"{table_name}.csv",
+                mime="text/csv",
+            )
         else:
             st.write("No data found in the selected table.")
 else:
