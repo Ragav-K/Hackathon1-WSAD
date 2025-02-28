@@ -1,6 +1,22 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
+
+def init_files():
+    if not os.path.exists(COMPLAINTS_FILE):
+        pd.DataFrame(columns=["Complaint"]).to_csv(COMPLAINTS_FILE, index=False)
+    if not os.path.exists(REPORTS_FILE):
+        pd.DataFrame(columns=["Unsafe Location"]).to_csv(REPORTS_FILE, index=False)
+    if not os.path.exists(FEEDBACK_FILE):
+        pd.DataFrame(columns=["Feedback"]).to_csv(FEEDBACK_FILE, index=False)
+
+def append_to_csv(file_name, data):
+    df = pd.read_csv(file_name)
+    df.loc[len(df)] = [data]
+    df.to_csv(file_name, index=False)
+
+init_files()
 
 
 data ={
@@ -138,48 +154,42 @@ elif selected_city == "Ghaziabad":
     st.page_link("https://www.radissonhotels.com/en-us/hotels/radisson-blu-kaushambi-delhi-ncr" , label = hotel_1)
     st.page_link("https://www.makemytrip.com/hotels/country_inn_and_suites_by_radisson_sahibabad-details-ghaziabad.html" , label = hotel_2)
 
-trans_comp = open("transport_compliant.txt" , "a")
 
 st.subheader("Enter the discomfort you feel during your travel:")
 st.warning("Enter your details along with the vehcile info(Like: Registration number).")
 comp = st.text_area("Enter the compliant")
 if st.button("Submit Compliant"):
     if comp:
-        trans_comp.write(comp + "\n")
+        append_to_csv(COMPLAINTS_FILE, comp)
         st.success("Your compliant has been informed to the Police and Emergency Response Support Team (Helpline:112).")
     else:
-        st.warning("Enter the compliant before submitting.")
-trans_comp.close()        
+        st.warning("Enter the compliant before submitting.")     
 
 
 st.subheader("Emergency Helpline Number:")
 st.write(f"For any emergencies in *{selected_city}, Contact: {city_data['Emergency number']}*")
 
-user_report =open("report.txt" , "a")
 
 st.subheader("Report if you feel any location is unsafe:")
 unsafe_location = st.text_input("Enter the unsafe location:")
 if st.button("Submit Report"):
     if unsafe_location:
-        user_report.write(unsafe_location + "\n")
+         append_to_csv(REPORTS_FILE, unsafe_location)
         st.success(f"Reported the place *{unsafe_location}* as unsafe. Authorities will be alerted.")
     else:
         st.warning("Please enter a loaction before reporting")
 
-user_report.close()
 
-user_feedback = open("Women Safety Analysis Dashboard/feedback.txt" , "a")
 
 feedback = st.text_area("Provide feedback to see improvement:")
 if st.button("Submit Feedback"):
     if feedback:
-        user_feedback.write(feedback + "\n")
+        append_to_csv(FEEDBACK_FILE, feedback)
         st.success("Thank you for your feedback! We have received it.")
     
     else:
       st.warning("Please enter feedback before submitting.")
         
-user_feedback.close()
 
 
 st.markdown("---")
