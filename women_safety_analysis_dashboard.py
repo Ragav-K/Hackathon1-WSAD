@@ -168,7 +168,7 @@ if st.button("Submit Report"):
 
 user_report.close()
 
-user_feedback = open("feedback.txt" , "a")
+user_feedback = open("Women Safety Analysis Dashboard/feedback.txt" , "a")
 
 feedback = st.text_area("Provide feedback to see improvement:")
 if st.button("Submit Feedback"):
