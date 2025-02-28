@@ -4,7 +4,7 @@ import plotly.express as px
 import sqlite3
 
 # Admin password (you can change this to something more secure)
-ADMIN_PASSWORD = "admin123"  # Replace with a strong password
+ADMIN_PASSWORD = "Hackrizz"  # Replace with a strong password
 
 # Initialize SQLite database
 def init_db():
